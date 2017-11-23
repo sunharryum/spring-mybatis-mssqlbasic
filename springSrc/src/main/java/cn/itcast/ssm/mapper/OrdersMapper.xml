@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.itcast.ssm.mapper.OrdersMapper" >
+  <resultMap id="BaseResultMap" type="cn.itcast.ssm.po.Orders" >
+    <result column="orderid" property="orderid" jdbcType="INTEGER" />
+    <result column="custid" property="custid" jdbcType="INTEGER" />
+    <result column="empid" property="empid" jdbcType="INTEGER" />
+    <result column="orderdate" property="orderdate" jdbcType="TIMESTAMP" />
+    <result column="requireddate" property="requireddate" jdbcType="TIMESTAMP" />
+    <result column="shippeddate" property="shippeddate" jdbcType="TIMESTAMP" />
+    <result column="shipperid" property="shipperid" jdbcType="INTEGER" />
+    <result column="freight" property="freight" jdbcType="DECIMAL" />
+    <result column="shipname" property="shipname" jdbcType="NVARCHAR" />
+    <result column="shipaddress" property="shipaddress" jdbcType="NVARCHAR" />
+    <result column="shipcity" property="shipcity" jdbcType="NVARCHAR" />
+    <result column="shipregion" property="shipregion" jdbcType="NVARCHAR" />
+    <result column="shippostalcode" property="shippostalcode" jdbcType="NVARCHAR" />
+    <result column="shipcountry" property="shipcountry" jdbcType="NVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    orderid, custid, empid, orderdate, requireddate, shippeddate, shipperid, freight, 
+    shipname, shipaddress, shipcity, shipregion, shippostalcode, shipcountry
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.itcast.ssm.po.OrdersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="cn.itcast.ssm.po.OrdersExample" >
+    delete from Orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.itcast.ssm.po.Orders" >
+    insert into Orders (orderid, custid, empid, 
+      orderdate, requireddate, shippeddate, 
+      shipperid, freight, shipname, 
+      shipaddress, shipcity, shipregion, 
+      shippostalcode, shipcountry)
+    values (#{orderid,jdbcType=INTEGER}, #{custid,jdbcType=INTEGER}, #{empid,jdbcType=INTEGER}, 
+      #{orderdate,jdbcType=TIMESTAMP}, #{requireddate,jdbcType=TIMESTAMP}, #{shippeddate,jdbcType=TIMESTAMP}, 
+      #{shipperid,jdbcType=INTEGER}, #{freight,jdbcType=DECIMAL}, #{shipname,jdbcType=NVARCHAR}, 
+      #{shipaddress,jdbcType=NVARCHAR}, #{shipcity,jdbcType=NVARCHAR}, #{shipregion,jdbcType=NVARCHAR}, 
+      #{shippostalcode,jdbcType=NVARCHAR}, #{shipcountry,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.itcast.ssm.po.Orders" >
+    insert into Orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="custid != null" >
+        custid,
+      </if>
+      <if test="empid != null" >
+        empid,
+      </if>
+      <if test="orderdate != null" >
+        orderdate,
+      </if>
+      <if test="requireddate != null" >
+        requireddate,
+      </if>
+      <if test="shippeddate != null" >
+        shippeddate,
+      </if>
+      <if test="shipperid != null" >
+        shipperid,
+      </if>
+      <if test="freight != null" >
+        freight,
+      </if>
+      <if test="shipname != null" >
+        shipname,
+      </if>
+      <if test="shipaddress != null" >
+        shipaddress,
+      </if>
+      <if test="shipcity != null" >
+        shipcity,
+      </if>
+      <if test="shipregion != null" >
+        shipregion,
+      </if>
+      <if test="shippostalcode != null" >
+        shippostalcode,
+      </if>
+      <if test="shipcountry != null" >
+        shipcountry,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="custid != null" >
+        #{custid,jdbcType=INTEGER},
+      </if>
+      <if test="empid != null" >
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="orderdate != null" >
+        #{orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="requireddate != null" >
+        #{requireddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shippeddate != null" >
+        #{shippeddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shipperid != null" >
+        #{shipperid,jdbcType=INTEGER},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DECIMAL},
+      </if>
+      <if test="shipname != null" >
+        #{shipname,jdbcType=NVARCHAR},
+      </if>
+      <if test="shipaddress != null" >
+        #{shipaddress,jdbcType=NVARCHAR},
+      </if>
+      <if test="shipcity != null" >
+        #{shipcity,jdbcType=NVARCHAR},
+      </if>
+      <if test="shipregion != null" >
+        #{shipregion,jdbcType=NVARCHAR},
+      </if>
+      <if test="shippostalcode != null" >
+        #{shippostalcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="shipcountry != null" >
+        #{shipcountry,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.itcast.ssm.po.OrdersExample" resultType="java.lang.Integer" >
+    select count(*) from Orders
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update Orders
+    <set >
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.custid != null" >
+        custid = #{record.custid,jdbcType=INTEGER},
+      </if>
+      <if test="record.empid != null" >
+        empid = #{record.empid,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderdate != null" >
+        orderdate = #{record.orderdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.requireddate != null" >
+        requireddate = #{record.requireddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shippeddate != null" >
+        shippeddate = #{record.shippeddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shipperid != null" >
+        shipperid = #{record.shipperid,jdbcType=INTEGER},
+      </if>
+      <if test="record.freight != null" >
+        freight = #{record.freight,jdbcType=DECIMAL},
+      </if>
+      <if test="record.shipname != null" >
+        shipname = #{record.shipname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.shipaddress != null" >
+        shipaddress = #{record.shipaddress,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.shipcity != null" >
+        shipcity = #{record.shipcity,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.shipregion != null" >
+        shipregion = #{record.shipregion,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.shippostalcode != null" >
+        shippostalcode = #{record.shippostalcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.shipcountry != null" >
+        shipcountry = #{record.shipcountry,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update Orders
+    set orderid = #{record.orderid,jdbcType=INTEGER},
+      custid = #{record.custid,jdbcType=INTEGER},
+      empid = #{record.empid,jdbcType=INTEGER},
+      orderdate = #{record.orderdate,jdbcType=TIMESTAMP},
+      requireddate = #{record.requireddate,jdbcType=TIMESTAMP},
+      shippeddate = #{record.shippeddate,jdbcType=TIMESTAMP},
+      shipperid = #{record.shipperid,jdbcType=INTEGER},
+      freight = #{record.freight,jdbcType=DECIMAL},
+      shipname = #{record.shipname,jdbcType=NVARCHAR},
+      shipaddress = #{record.shipaddress,jdbcType=NVARCHAR},
+      shipcity = #{record.shipcity,jdbcType=NVARCHAR},
+      shipregion = #{record.shipregion,jdbcType=NVARCHAR},
+      shippostalcode = #{record.shippostalcode,jdbcType=NVARCHAR},
+      shipcountry = #{record.shipcountry,jdbcType=NVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

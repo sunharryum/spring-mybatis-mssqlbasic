@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.itcast.ssm.mapper.EmployeesMapper" >
+  <resultMap id="BaseResultMap" type="cn.itcast.ssm.po.Employees" >
+    <result column="empid" property="empid" jdbcType="INTEGER" />
+    <result column="lastname" property="lastname" jdbcType="NVARCHAR" />
+    <result column="firstname" property="firstname" jdbcType="NVARCHAR" />
+    <result column="title" property="title" jdbcType="NVARCHAR" />
+    <result column="titleofcourtesy" property="titleofcourtesy" jdbcType="NVARCHAR" />
+    <result column="birthdate" property="birthdate" jdbcType="TIMESTAMP" />
+    <result column="hiredate" property="hiredate" jdbcType="TIMESTAMP" />
+    <result column="address" property="address" jdbcType="NVARCHAR" />
+    <result column="city" property="city" jdbcType="NVARCHAR" />
+    <result column="region" property="region" jdbcType="NVARCHAR" />
+    <result column="postalcode" property="postalcode" jdbcType="NVARCHAR" />
+    <result column="country" property="country" jdbcType="NVARCHAR" />
+    <result column="phone" property="phone" jdbcType="NVARCHAR" />
+    <result column="mgrid" property="mgrid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    empid, lastname, firstname, title, titleofcourtesy, birthdate, hiredate, address, 
+    city, region, postalcode, country, phone, mgrid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.itcast.ssm.po.EmployeesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Employees
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="cn.itcast.ssm.po.EmployeesExample" >
+    delete from Employees
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.itcast.ssm.po.Employees" >
+    insert into Employees (empid, lastname, firstname, 
+      title, titleofcourtesy, birthdate, 
+      hiredate, address, city, 
+      region, postalcode, country, 
+      phone, mgrid)
+    values (#{empid,jdbcType=INTEGER}, #{lastname,jdbcType=NVARCHAR}, #{firstname,jdbcType=NVARCHAR}, 
+      #{title,jdbcType=NVARCHAR}, #{titleofcourtesy,jdbcType=NVARCHAR}, #{birthdate,jdbcType=TIMESTAMP}, 
+      #{hiredate,jdbcType=TIMESTAMP}, #{address,jdbcType=NVARCHAR}, #{city,jdbcType=NVARCHAR}, 
+      #{region,jdbcType=NVARCHAR}, #{postalcode,jdbcType=NVARCHAR}, #{country,jdbcType=NVARCHAR}, 
+      #{phone,jdbcType=NVARCHAR}, #{mgrid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.itcast.ssm.po.Employees" >
+    insert into Employees
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="empid != null" >
+        empid,
+      </if>
+      <if test="lastname != null" >
+        lastname,
+      </if>
+      <if test="firstname != null" >
+        firstname,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="titleofcourtesy != null" >
+        titleofcourtesy,
+      </if>
+      <if test="birthdate != null" >
+        birthdate,
+      </if>
+      <if test="hiredate != null" >
+        hiredate,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="postalcode != null" >
+        postalcode,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="mgrid != null" >
+        mgrid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="empid != null" >
+        #{empid,jdbcType=INTEGER},
+      </if>
+      <if test="lastname != null" >
+        #{lastname,jdbcType=NVARCHAR},
+      </if>
+      <if test="firstname != null" >
+        #{firstname,jdbcType=NVARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=NVARCHAR},
+      </if>
+      <if test="titleofcourtesy != null" >
+        #{titleofcourtesy,jdbcType=NVARCHAR},
+      </if>
+      <if test="birthdate != null" >
+        #{birthdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hiredate != null" >
+        #{hiredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=NVARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=NVARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=NVARCHAR},
+      </if>
+      <if test="postalcode != null" >
+        #{postalcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=NVARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=NVARCHAR},
+      </if>
+      <if test="mgrid != null" >
+        #{mgrid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.itcast.ssm.po.EmployeesExample" resultType="java.lang.Integer" >
+    select count(*) from Employees
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update Employees
+    <set >
+      <if test="record.empid != null" >
+        empid = #{record.empid,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastname != null" >
+        lastname = #{record.lastname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.firstname != null" >
+        firstname = #{record.firstname,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.titleofcourtesy != null" >
+        titleofcourtesy = #{record.titleofcourtesy,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.birthdate != null" >
+        birthdate = #{record.birthdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hiredate != null" >
+        hiredate = #{record.hiredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.region != null" >
+        region = #{record.region,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.postalcode != null" >
+        postalcode = #{record.postalcode,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=NVARCHAR},
+      </if>
+      <if test="record.mgrid != null" >
+        mgrid = #{record.mgrid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update Employees
+    set empid = #{record.empid,jdbcType=INTEGER},
+      lastname = #{record.lastname,jdbcType=NVARCHAR},
+      firstname = #{record.firstname,jdbcType=NVARCHAR},
+      title = #{record.title,jdbcType=NVARCHAR},
+      titleofcourtesy = #{record.titleofcourtesy,jdbcType=NVARCHAR},
+      birthdate = #{record.birthdate,jdbcType=TIMESTAMP},
+      hiredate = #{record.hiredate,jdbcType=TIMESTAMP},
+      address = #{record.address,jdbcType=NVARCHAR},
+      city = #{record.city,jdbcType=NVARCHAR},
+      region = #{record.region,jdbcType=NVARCHAR},
+      postalcode = #{record.postalcode,jdbcType=NVARCHAR},
+      country = #{record.country,jdbcType=NVARCHAR},
+      phone = #{record.phone,jdbcType=NVARCHAR},
+      mgrid = #{record.mgrid,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
